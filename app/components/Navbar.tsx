@@ -19,20 +19,18 @@ const navItems = [
 
 export default function Navbar() {
   const pathname = usePathname();
-  const [open, setOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <nav className="bg-indigo-700 text-white px-6 py-3 shadow-md">
+      {/* Top Bar */}
       <div className="flex items-center justify-between">
-
-        {/* Logo / Title */}
-        <Link href="/" className="flex items-center gap-2">
-        <div className="text-xl font-bold tracking-wide">
+        {/* Logo */}
+        <Link href="/" className="text-xl font-bold tracking-wide">
           🚦 Pune AI Traffic
-        </div>
         </Link>
 
-        {/* Navigation Links */}
+        {/* Desktop Navigation */}
         <ul className="hidden md:flex gap-6 text-sm">
           {navItems.map((item) => (
             <li key={item.path}>
@@ -50,53 +48,70 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Right Section */}
-        <div className="hidden md:block text-sm">
-           <li
-            className="relative cursor-pointer"
-            onMouseEnter={() => setOpen(true)}
-            onMouseLeave={() => setOpen(false)}
-          >
-            <span className="bg-green-500 px-3 py-1 rounded-full">
+        {/* Desktop LIVE badge */}
+        <div className="hidden md:block">
+          <span className="bg-green-500 px-3 py-1 rounded-full text-sm">
             LIVE
           </span>
-           {/* {open && (
-              <ul className="absolute top-6 right-10 bg-white text-black rounded shadow-lg w-56 z-50">
-                {liveServices.map((service) => (
-                  <li key={service.path}>
-                    <Link
-                      href={service.path}
-                      className="block px-4 py-2 hover:bg-indigo-100"
-                    >
-                      {service.icon} {service.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            )} */}
-          </li>
-
-
         </div>
+
+        {/* Mobile Hamburger */}
+        <button
+          className="md:hidden text-2xl"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle menu"
+        >
+          {menuOpen ? "✕" : "☰"}
+        </button>
       </div>
 
       {/* Mobile Menu */}
-      <div className="md:hidden mt-3 grid grid-cols-2 gap-2 text-sm">
-        {/* {liveServices.map((service) => (
-                  <li key={service.path}>
-                    <Link
-                      href={service.path}
-                      className={`px-3 py-2 rounded ${
-              pathname === service.path
-                ? "bg-yellow-400 text-black"
-                : "bg-indigo-600"
-            }`}
-                    >
-                      {service.icon} {service.name}
-                    </Link>
-                  </li>
-                ))} */}
-      </div>
+      {menuOpen && (
+        <div className="md:hidden mt-4 bg-indigo-600 rounded-lg shadow-lg">
+          {/* Main Navigation */}
+          <ul className="flex flex-col divide-y divide-indigo-500">
+            {navItems.map((item) => (
+              <li key={item.path}>
+                <Link
+                  href={item.path}
+                  onClick={() => setMenuOpen(false)}
+                  className={`block px-4 py-3 text-sm ${
+                    pathname === item.path
+                      ? "bg-yellow-400 text-black font-semibold"
+                      : "hover:bg-indigo-500"
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          {/* Live Services Section */}
+          <div className="border-t border-indigo-500 mt-2">
+            <p className="px-4 py-2 text-xs text-indigo-200 uppercase">
+              Live Services
+            </p>
+            <ul className="grid grid-cols-2 gap-2 p-3 text-sm">
+              {liveServices.map((service) => (
+                <li key={service.path}>
+                  <Link
+                    href={service.path}
+                    onClick={() => setMenuOpen(false)}
+                    className={`block px-3 py-2 rounded ${
+                      pathname === service.path
+                        ? "bg-yellow-400 text-black"
+                        : "bg-indigo-700 hover:bg-indigo-500"
+                    }`}
+                  >
+                    {service.icon} {service.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
     </nav>
   );
 }
