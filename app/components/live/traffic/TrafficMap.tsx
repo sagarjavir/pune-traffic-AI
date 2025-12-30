@@ -1,4 +1,4 @@
-import LiveMap from "../maps/LiveMap";
+import LiveMap from "../../maps/LiveMap";
 
 export default function TrafficMap() {
   return (

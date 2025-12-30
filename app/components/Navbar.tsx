@@ -8,7 +8,7 @@ import { liveServices } from "../config/liveServices";
 const navItems = [
   { name: "Home", path: "/" },
   { name: "Dashboard", path: "/dashboard" },
-  { name: "Live Traffic", path: "/live-traffic" },
+  { name: "Live Traffic", path: "/live/traffic" },
   { name: "Signal Control", path: "/signals" },
   { name: "Violations", path: "/violations" },
   { name: "Emergency", path: "/emergency" },
@@ -47,8 +47,6 @@ export default function Navbar() {
                 {item.name}
               </Link>
             </li>
-            // Live dropdown
-
           ))}
         </ul>
 

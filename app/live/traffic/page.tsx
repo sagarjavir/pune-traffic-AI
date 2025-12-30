@@ -1,6 +1,6 @@
-import TrafficSummary from "@/app/components/live-traffic/TrafficSummary";
-import JunctionTable from "@/app/components/live-traffic/JunctionTable";
-import TechStack from "@/app/components/live-traffic/TechStack";
+import TrafficSummary from "@/app/components/live/traffic/TrafficSummary";
+import JunctionTable from "@/app/components/live/traffic/JunctionTable";
+import TechStack from "@/app/components/live/traffic/TechStack";
 import LiveMap from "@/app/components/maps/LiveMap";
 
 export default function LiveTrafficPage() {
