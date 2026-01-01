@@ -28,7 +28,7 @@ export default function Navbar() {
       <div className="flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="text-xl font-bold tracking-wide">
-          🚦 Pune AI Traffic
+          🚦AI-Powered Traffic Management
         </Link>
 
         {/* Desktop Navigation */}
@@ -89,7 +89,7 @@ export default function Navbar() {
           </ul>
 
           {/* Live Services Section */}
-          <div className="border-t border-indigo-500 mt-2">
+          {/* <div className="border-t border-indigo-500 mt-2">
             <p className="px-4 py-2 text-xs text-indigo-200 uppercase">
               Live Services
             </p>
@@ -110,7 +110,7 @@ export default function Navbar() {
                 </li>
               ))}
             </ul>
-          </div>
+          </div> */}
         </div>
       )}
     </nav>
