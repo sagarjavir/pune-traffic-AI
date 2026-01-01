@@ -15,6 +15,7 @@ const navItems = [
   { name: "Parking", path: "/parking" },
   { name: "Analytics", path: "/analytics" },
   { name: "Citizen", path: "/citizen" },
+
 ];
 
 export default function Navbar() {

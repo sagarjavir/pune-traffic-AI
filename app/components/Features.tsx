@@ -23,7 +23,7 @@ const features = [
   },
   {
     title: "🧠 Accident Detection with AI",
-    path: "/live-traffic",
+    path: "/accident",
   },
 ];
 
