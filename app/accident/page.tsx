@@ -1,15 +1,18 @@
-import React from 'react'
-import AccidentSummaryCard from '../components/accident/AccidentSummaryCard';
+import AccidentOperations from "../components/accident/AccidentOperations";
 
-function AccidentPage() {
+export default function AccidentPage() {
   return (
-        <div className="p-6 space-y-6">
-          <h1 className="text-2xl font-bold">
-             🧠 Accident Detection with AI
-          </h1>
-           <AccidentSummaryCard />
-        </div>
-  )
+    <div className="p-6 space-y-6 max-w-6xl mx-auto">
+      <div>
+        <h1 className="text-2xl font-bold text-slate-900">
+          Accident Detection with AI
+        </h1>
+        <p className="text-sm text-slate-600 mt-1">
+          Junction cameras flag collisions in real time, identify vehicles, and
+          help dispatch ambulance, police, and a green corridor.
+        </p>
+      </div>
+      <AccidentOperations />
+    </div>
+  );
 }
-
-export default AccidentPage

@@ -1,11 +1,9 @@
-const signals = [ { junction: "Hinjewadi Phase 1", green: "45 sec", red: "75 sec", mode: "AI", congestion: "High", }, { junction: "Shivajinagar", green: "40 sec", red: "60 sec", mode: "AI", congestion: "Medium", }, { junction: "Swargate", green: "30 sec", red: "90 sec", mode: "Manual", congestion: "High", }, { junction: "Baner Road", green: "55 sec", red: "45 sec", mode: "AI", congestion: "Low", }, ];
+import { junctions } from "../../data/puneTraffic";
+
 export default function SignalTable() {
   return (
     <div className="bg-white p-5 rounded-xl shadow overflow-hidden">
-      <h2 className="font-semibold mb-4">
-        Junction-wise Signal Timings
-      </h2>
-
+      <h2 className="font-semibold mb-4">Junction-wise Signal Timings</h2>
       <table className="responsive-table w-full text-sm border">
         <thead>
           <tr>
@@ -16,15 +14,14 @@ export default function SignalTable() {
             <th>Congestion</th>
           </tr>
         </thead>
-
         <tbody>
-          {signals.map((s, i) => (
-            <tr key={i}>
-              <td data-label="Junction">{s.junction}</td>
-              <td data-label="Green Time">{s.green}</td>
-              <td data-label="Red Time">{s.red}</td>
-              <td data-label="Control Mode">{s.mode}</td>
-              <td data-label="Congestion">{s.congestion}</td>
+          {junctions.map((signal) => (
+            <tr key={signal.id}>
+              <td data-label="Junction">{signal.name}</td>
+              <td data-label="Green Time">{signal.green}</td>
+              <td data-label="Red Time">{signal.red}</td>
+              <td data-label="Control Mode">{signal.mode}</td>
+              <td data-label="Congestion">{signal.level}</td>
             </tr>
           ))}
         </tbody>

@@ -1,17 +1,20 @@
 "use client";
+
 import { useEffect, useState } from "react";
+import { cityStats, junctions } from "../data/puneTraffic";
 
 export function useLiveTraffic() {
-  const [data, setData] = useState<any>(null);
+  const [tick, setTick] = useState(0);
 
   useEffect(() => {
-    const ws = new WebSocket("ws://localhost:8000/ws/traffic");
-
-    ws.onmessage = (event) => {
-      setData(JSON.parse(event.data));
-    };
-    ws.onerror = () => console.error("WebSocket error");
-    return () => ws.close();
+    const id = setInterval(() => setTick((value) => value + 1), 8000);
+    return () => clearInterval(id);
   }, []);
-  return data;
+
+  return {
+    tick,
+    congestion: cityStats.congestion,
+    junctions,
+    updatedAt: new Date().toLocaleTimeString(),
+  };
 }

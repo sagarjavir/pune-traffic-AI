@@ -1,11 +1,20 @@
+import { cityStats } from "../../../data/puneTraffic";
 
 export default function TrafficSummary() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-      <Card title="Overall Traffic" value="Moderate" color="bg-green-600" />
-      <Card title="Congested Junctions" value="7" color="bg-yellow-500" />
-      <Card title="Accidents Detected" value="3" color="bg-red-600" />
-      <Card title="AI Prediction" value="Peak at 7 PM" color="bg-indigo-600" />
+      <Card title="Overall Traffic" value={cityStats.congestion} color="bg-green-600" />
+      <Card
+        title="Congested Junctions"
+        value={String(cityStats.congestedJunctions)}
+        color="bg-yellow-500"
+      />
+      <Card
+        title="Accidents Detected"
+        value={String(cityStats.accidentsDetected)}
+        color="bg-red-600"
+      />
+      <Card title="AI Prediction" value={cityStats.aiPrediction} color="bg-indigo-600" />
     </div>
   );
 }

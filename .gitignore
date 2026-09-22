@@ -17,6 +17,9 @@ build/
 .env.local
 .env.production
 
+# Local registered users
+data/users.json
+
 # Logs
 npm-debug.log*
 yarn-debug.log*
