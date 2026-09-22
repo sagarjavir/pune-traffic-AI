@@ -1,6 +1,29 @@
+"use client";
+
 import Link from "next/link";
+import { useAuth } from "./auth/AuthProvider";
+import { canAccess } from "../lib/roles";
 
 export default function Footer() {
+  const { user } = useAuth();
+
+  const linkClass = "hover:text-yellow-300";
+  const ops = [
+    { href: "/live/traffic", label: "Live Traffic" },
+    { href: "/accident", label: "Accident Detection" },
+    { href: "/emergency", label: "Emergency Response" },
+  ];
+  const publicLinks = [
+    { href: "/citizen", label: "Citizen Portal" },
+    { href: "/parking", label: "Smart Parking" },
+  ];
+
+  function hrefFor(path: string) {
+    if (!user) return `/login?from=${encodeURIComponent(path)}`;
+    if (canAccess(user.role, path)) return path;
+    return "/unauthorized";
+  }
+
   return (
     <footer className="bg-slate-900 text-slate-200 px-6 py-8 mt-auto">
       <div className="max-w-6xl mx-auto grid gap-6 md:grid-cols-3 text-sm">
@@ -14,46 +37,39 @@ export default function Footer() {
         <div>
           <p className="font-semibold text-white">Operations</p>
           <ul className="mt-2 space-y-1">
-            <li>
-              <Link href="/live/traffic" className="hover:text-yellow-300">
-                Live Traffic
-              </Link>
-            </li>
-            <li>
-              <Link href="/accident" className="hover:text-yellow-300">
-                Accident Detection
-              </Link>
-            </li>
-            <li>
-              <Link href="/emergency" className="hover:text-yellow-300">
-                Emergency Response
-              </Link>
-            </li>
+            {ops.map((item) => (
+              <li key={item.href}>
+                <Link href={hrefFor(item.href)} className={linkClass}>
+                  {item.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
         <div>
           <p className="font-semibold text-white">Public</p>
           <ul className="mt-2 space-y-1">
-            <li>
-              <Link href="/citizen" className="hover:text-yellow-300">
-                Citizen Portal
-              </Link>
-            </li>
-            <li>
-              <Link href="/parking" className="hover:text-yellow-300">
-                Smart Parking
-              </Link>
-            </li>
-            <li>
-              <Link href="/login" className="hover:text-yellow-300">
-                Sign in
-              </Link>
-            </li>
-            <li>
-              <Link href="/register" className="hover:text-yellow-300">
-                Register
-              </Link>
-            </li>
+            {publicLinks.map((item) => (
+              <li key={item.href}>
+                <Link href={hrefFor(item.href)} className={linkClass}>
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+            {!user && (
+              <>
+                <li>
+                  <Link href="/login" className={linkClass}>
+                    Sign in
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/register" className={linkClass}>
+                    Register
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>

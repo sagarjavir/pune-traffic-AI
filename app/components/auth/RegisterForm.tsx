@@ -4,12 +4,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
 import { Button } from "../ui/button";
-import { ROLE_LABEL, ROLES, type Role } from "../../lib/roles";
+import { ROLE_LABEL, REGISTER_ROLES, type RegisterRole } from "../../lib/roles";
 import { useAuth } from "./AuthProvider";
 import { AuthError, Field, TextInput } from "./AuthFields";
 
-const ROLE_HELP: Record<Role, string> = {
-  admin: "PMC control room, signals, and analytics",
+const ROLE_HELP: Record<RegisterRole, string> = {
   police: "Violations, accidents, and emergency dispatch",
   citizen: "Live traffic, parking, and public alerts",
 };
@@ -17,7 +16,7 @@ const ROLE_HELP: Record<Role, string> = {
 export default function RegisterForm() {
   const router = useRouter();
   const { refresh } = useAuth();
-  const [role, setRole] = useState<Role>("citizen");
+  const [role, setRole] = useState<RegisterRole>("citizen");
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
   const [form, setForm] = useState({
@@ -90,7 +89,7 @@ export default function RegisterForm() {
       <div>
         <p className="text-sm font-medium text-slate-700 mb-2">Register as</p>
         <div className="grid gap-2">
-          {ROLES.map((item) => (
+          {REGISTER_ROLES.map((item) => (
             <label
               key={item}
               className={`flex cursor-pointer items-start gap-3 rounded-lg border p-3 ${
@@ -115,16 +114,6 @@ export default function RegisterForm() {
         </div>
       </div>
 
-      {role === "admin" && (
-        <Field label="Department (optional)">
-          <TextInput
-            name="department"
-            placeholder="PMC Traffic Control"
-            value={form.department}
-            onChange={(event) => update("department", event.target.value)}
-          />
-        </Field>
-      )}
       {role === "police" && (
         <Field label="Badge number (optional)">
           <TextInput

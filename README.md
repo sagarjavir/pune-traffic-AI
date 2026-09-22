@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Pune Traffic AI
 
-## Getting Started
+Next.js demo of an AI traffic control room for Pune: live congestion, adaptive signals, accident dispatch, violations, parking, and a citizen portal.
 
-First, run the development server:
+This is a **frontend demo with mock Pune data**. It is not an official PMC / traffic-police system.
+
+## Run locally
 
 ```bash
+npm install
+copy .env.example .env.local
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Set `AUTH_SECRET` in `.env.local` to any long random string.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Demo logins
 
-## Learn More
+Use the **Use** buttons on `/login`, or sign in with:
 
-To learn more about Next.js, take a look at the following resources:
+| Role | Email | Password | Can open |
+| --- | --- | --- | --- |
+| Admin | `admin@punetraffic.ai` | `Admin@123` | All modules, including signals and analytics |
+| Police | `police@punetraffic.ai` | `Police@123` | Accidents, violations, emergency, traffic, parking |
+| Citizen | `citizen@punetraffic.ai` | `Citizen@123` | Dashboard, live traffic, parking, citizen portal |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Register at `/register` as **Police** or **Citizen**. Admin cannot be self-registered; use the demo Admin account.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+New registrations are stored in `data/users.json` on this machine only. They will not appear after a fresh deploy.
 
-## Deploy on Vercel
+## Main routes
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `/` home
+- `/login` and `/register`
+- `/dashboard` role home
+- `/live/traffic` congestion map
+- `/accident` AI accident desk and dispatch
+- `/emergency` green corridor (updates after dispatch)
+- `/signals` `/violations` `/parking` `/analytics` `/citizen`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Stack
+
+Next.js 16, React 19, Tailwind CSS, Leaflet/OSM maps, cookie sessions.
+
+## GitHub
+
+Remote: `https://github.com/sagarjavir/pune-traffic-AI.git`

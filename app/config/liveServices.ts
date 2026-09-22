@@ -5,28 +5,23 @@ export const liveServices = [
     icon: "🚦",
   },
   {
-    name: "Junction Status",
-    path: "/live/junctions",
-    icon: "🚥",
-  },
-  {
     name: "Signal Control",
-    path: "/live/signals",
+    path: "/signals",
     icon: "🟢",
   },
   {
     name: "Violations Feed",
-    path: "/live/violations",
+    path: "/violations",
     icon: "📸",
   },
   {
     name: "Emergency Tracking",
-    path: "/live/emergency",
+    path: "/emergency",
     icon: "🚑",
   },
   {
     name: "Parking Availability",
-    path: "/live/parking",
+    path: "/parking",
     icon: "🅿️",
   },
 ];

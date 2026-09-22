@@ -1,6 +1,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import path from "path";
-import { DEMO_ACCOUNTS, type PublicUser, type Role } from "./roles";
+import { DEMO_ACCOUNTS } from "./demoAccounts";
+import type { PublicUser, Role } from "./roles";
 import { hashPassword, verifyPassword } from "./passwords";
 
 export type StoredUser = PublicUser & {

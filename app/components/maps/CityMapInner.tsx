@@ -8,6 +8,7 @@ import {
   Popup,
   Circle,
   Marker,
+  Polyline,
 } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -29,6 +30,7 @@ export type CityMapInnerProps = {
   zoom?: number;
   highlight?: { lat: number; lng: number; radius?: number };
   showDefaultMarker?: boolean;
+  corridor?: [number, number][];
 };
 
 export default function CityMapInner({
@@ -37,6 +39,7 @@ export default function CityMapInner({
   zoom = 12,
   highlight,
   showDefaultMarker = false,
+  corridor,
 }: CityMapInnerProps) {
   useEffect(() => {
     const iconProto = L.Icon.Default.prototype as L.Icon.Default & {
@@ -66,6 +69,13 @@ export default function CityMapInner({
         attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
+
+      {corridor && corridor.length > 1 && (
+        <Polyline
+          positions={corridor}
+          pathOptions={{ color: "#16a34a", weight: 6, opacity: 0.85 }}
+        />
+      )}
 
       {highlight && (
         <>

@@ -25,7 +25,12 @@ export const SESSION_COOKIE = "pune_traffic_session";
 const SESSION_DAYS = 7;
 
 function getSecret() {
-  return process.env.AUTH_SECRET || "pune-traffic-ai-demo-secret";
+  const secret = process.env.AUTH_SECRET;
+  if (secret) return secret;
+  if (process.env.NODE_ENV !== "production") {
+    return "pune-traffic-ai-dev-secret";
+  }
+  throw new Error("AUTH_SECRET is required in production.");
 }
 
 async function hmac(input: string) {

@@ -1,5 +1,7 @@
 export const ROLES = ["admin", "police", "citizen"] as const;
 export type Role = (typeof ROLES)[number];
+export const REGISTER_ROLES = ["police", "citizen"] as const;
+export type RegisterRole = (typeof REGISTER_ROLES)[number];
 
 export type PublicUser = {
   id: string;
@@ -74,23 +76,8 @@ export function navItemsForRole(role: Role | null) {
   });
 }
 
-export const DEMO_ACCOUNTS = [
-  {
-    role: "admin" as const,
-    email: "admin@punetraffic.ai",
-    password: "Admin@123",
-    name: "Priya Deshmukh",
-  },
-  {
-    role: "police" as const,
-    email: "police@punetraffic.ai",
-    password: "Police@123",
-    name: "Inspector Patil",
-  },
-  {
-    role: "citizen" as const,
-    email: "citizen@punetraffic.ai",
-    password: "Citizen@123",
-    name: "Aarav Joshi",
-  },
+export const DEMO_LOGIN_OPTIONS: { role: Role; email: string; name: string }[] = [
+  { role: "admin", email: "admin@punetraffic.ai", name: "Priya Deshmukh" },
+  { role: "police", email: "police@punetraffic.ai", name: "Inspector Patil" },
+  { role: "citizen", email: "citizen@punetraffic.ai", name: "Aarav Joshi" },
 ];

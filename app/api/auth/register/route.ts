@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
 import { registerUser } from "../../../lib/users";
 import { createSessionToken, SESSION_COOKIE, sessionCookieOptions } from "../../../lib/session";
-import { ROLE_HOME, ROLES, type Role } from "../../../lib/roles";
+import { ROLE_HOME, REGISTER_ROLES, type Role } from "../../../lib/roles";
 
 export const runtime = "nodejs";
 
 function isRole(value: unknown): value is Role {
-  return typeof value === "string" && (ROLES as readonly string[]).includes(value);
+  return typeof value === "string" && (REGISTER_ROLES as readonly string[]).includes(value);
 }
 
 export async function POST(request: Request) {
@@ -43,7 +43,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Passwords do not match." }, { status: 400 });
     }
     if (!isRole(body.role)) {
-      return NextResponse.json({ error: "Please choose a role." }, { status: 400 });
+      return NextResponse.json(
+        { error: "Register as Police or Citizen. Admin access is demo-login only." },
+        { status: 400 }
+      );
     }
 
     const user = registerUser({

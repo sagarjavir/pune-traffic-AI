@@ -2,16 +2,20 @@
 
 import CityMap from "../maps/CityMap";
 
+const SASSOON: [number, number] = [18.5284, 73.8722];
+
 interface AccidentLocationMapProps {
   latitude?: number;
   longitude?: number;
   locationName?: string;
+  corridorOpen?: boolean;
 }
 
 const AccidentLocationMap: React.FC<AccidentLocationMapProps> = ({
   latitude = 18.5204,
   longitude = 73.8567,
   locationName = "Shivajinagar Junction, Pune",
+  corridorOpen = false,
 }) => {
   return (
     <div className="rounded-xl border border-gray-200 shadow-sm overflow-hidden bg-white">
@@ -23,9 +27,10 @@ const AccidentLocationMap: React.FC<AccidentLocationMapProps> = ({
       <div className="h-64">
         <CityMap
           center={[latitude, longitude]}
-          zoom={16}
+          zoom={corridorOpen ? 13 : 16}
           highlight={{ lat: latitude, lng: longitude, radius: 70 }}
           showDefaultMarker
+          corridor={corridorOpen ? [[latitude, longitude], SASSOON] : undefined}
           markers={[
             {
               id: "accident-point",
@@ -35,12 +40,26 @@ const AccidentLocationMap: React.FC<AccidentLocationMapProps> = ({
               type: "accident",
               description: "AI-detected collision zone",
             },
+            ...(corridorOpen
+              ? [
+                  {
+                    id: "hospital",
+                    name: "Sassoon General Hospital",
+                    lat: SASSOON[0],
+                    lng: SASSOON[1],
+                    type: "emergency" as const,
+                    description: "Green corridor destination",
+                  },
+                ]
+              : []),
           ]}
         />
       </div>
 
       <div className="px-4 py-2 text-xs text-gray-600 bg-white">
-        Map centered on the accident. Nearby signals can be overridden from Emergency Actions.
+        {corridorOpen
+          ? "Green corridor open toward Sassoon General Hospital."
+          : "Map centered on the accident. Override signals to open a green corridor."}
       </div>
     </div>
   );

@@ -1,16 +1,21 @@
 "use client";
 
 import CityMap from "../maps/CityMap";
-import { junctions } from "../../data/puneTraffic";
+import { useLiveTraffic } from "../../hooks/useLiveTraffic";
 
 export default function LiveMap() {
+  const live = useLiveTraffic();
+
   return (
     <div className="w-full rounded-xl border bg-white shadow p-4">
-      <h2 className="text-lg font-semibold mb-4">Live Traffic Status</h2>
+      <div className="flex items-center justify-between gap-3 mb-4">
+        <h2 className="text-lg font-semibold">Live Traffic Status</h2>
+        <span className="text-xs text-slate-500">Updated {live.updatedAt}</span>
+      </div>
       <div className="relative w-full h-[350px] rounded-lg overflow-hidden">
         <CityMap
           zoom={12}
-          markers={junctions.map((junction) => ({
+          markers={live.junctions.map((junction) => ({
             id: junction.id,
             name: junction.name,
             lat: junction.lat,

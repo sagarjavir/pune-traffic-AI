@@ -8,8 +8,8 @@ export default function RegisterPage() {
           <p className="text-sm uppercase tracking-wide text-slate-400">Create access</p>
           <h1 className="mt-2 text-3xl font-bold">Register for Pune Traffic AI</h1>
           <p className="mt-3 text-sm text-slate-300">
-            Choose your role during registration. You will be signed in immediately and
-            sent to the matching dashboard.
+            Choose Police or Citizen. Admin is available from the demo sign-in on the
+            login page.
           </p>
         </div>
         <div className="p-8">

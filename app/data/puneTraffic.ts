@@ -61,9 +61,9 @@ export type Violation = {
 export const cityStats = {
   congestion: "Medium",
   signals: "1,240+",
-  incidentsToday: 18,
+  incidentsToday: 3,
   avgSpeed: "32 km/h",
-  congestedJunctions: 7,
+  congestedJunctions: 3,
   accidentsDetected: 3,
   aiPrediction: "Peak at 7 PM",
 };
@@ -275,4 +275,24 @@ export const congestionColor: Record<CongestionLevel, string> = {
   High: "#ef4444",
   Medium: "#eab308",
   Low: "#22c55e",
+};
+
+export const parkingStats = {
+  areas: parkingLots.length,
+  totalSlots: parkingLots.reduce((sum, lot) => sum + lot.total, 0),
+  available: parkingLots.reduce((sum, lot) => sum + lot.available, 0),
+  occupied: parkingLots.reduce((sum, lot) => sum + (lot.total - lot.available), 0),
+};
+
+export const violationStats = {
+  today: violations.length,
+  pending: violations.filter((item) => item.status === "Pending").length,
+  paid: violations.filter((item) => item.status === "Paid").length,
+};
+
+export const signalStats = {
+  monitored: junctions.length,
+  aiControlled: junctions.filter((item) => item.mode === "AI").length,
+  manual: junctions.filter((item) => item.mode === "Manual").length,
+  highCongestion: junctions.filter((item) => item.level === "High").length,
 };

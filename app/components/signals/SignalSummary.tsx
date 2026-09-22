@@ -1,19 +1,13 @@
+import { StatCard } from "../ui/stat-card";
+import { signalStats } from "../../data/puneTraffic";
 
 export default function SignalSummary() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-      <Card title="Total Signals" value="1240" color="bg-indigo-600" />
-      <Card title="AI-Controlled" value="890" color="bg-green-600" />
-      <Card title="Manual Override" value="35" color="bg-yellow-500" />
-      <Card title="Emergency Active" value="4" color="bg-red-600" />
-    </div>
-  );
-}
-function Card({ title, value, color }: any) {
-  return (
-    <div className={`${color} text-white rounded-xl p-4`}>
-      <p className="text-sm">{title}</p>
-      <h2 className="text-xl font-bold">{value}</h2>
+      <StatCard title="Monitored Junctions" value={String(signalStats.monitored)} color="bg-indigo-600" />
+      <StatCard title="AI-Controlled" value={String(signalStats.aiControlled)} color="bg-green-600" />
+      <StatCard title="Manual Override" value={String(signalStats.manual)} color="bg-yellow-500" />
+      <StatCard title="High Congestion" value={String(signalStats.highCongestion)} color="bg-red-600" />
     </div>
   );
 }
