@@ -26,7 +26,7 @@ export default function GreenCorridor() {
       <ul className="text-sm list-disc ml-5">
         {open.map((item) => (
           <li key={item.id}>
-            {item.id}: {item.location} → Sassoon General Hospital
+            {item.id}: ambulance moving {item.location} → Sassoon General Hospital
           </li>
         ))}
       </ul>

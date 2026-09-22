@@ -18,7 +18,7 @@ export default function Navbar() {
     path === "/" ? pathname === "/" : pathname.startsWith(path);
 
   return (
-    <nav className="bg-indigo-700 text-white px-4 md:px-6 py-3 shadow-md sticky top-0 z-50">
+    <nav className="bg-indigo-700 text-white px-4 md:px-6 py-3 shadow-md">
       <div className="flex items-center justify-between gap-4">
         <Link href="/" className="text-lg md:text-xl font-bold tracking-wide shrink-0">
           Pune Traffic AI

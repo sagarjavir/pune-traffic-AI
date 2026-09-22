@@ -1,8 +1,8 @@
 "use client";
 
+import { useEffect, useMemo, useState } from "react";
 import CityMap from "../maps/CityMap";
-
-const SASSOON: [number, number] = [18.5284, 73.8722];
+import { SASSOON_HOSPITAL, buildCorridor } from "../../data/puneTraffic";
 
 interface AccidentLocationMapProps {
   latitude?: number;
@@ -17,6 +17,24 @@ const AccidentLocationMap: React.FC<AccidentLocationMapProps> = ({
   locationName = "Shivajinagar Junction, Pune",
   corridorOpen = false,
 }) => {
+  const corridor = useMemo(
+    () => (corridorOpen ? buildCorridor([latitude, longitude]) : undefined),
+    [corridorOpen, latitude, longitude]
+  );
+  const [eta, setEta] = useState(12);
+
+  useEffect(() => {
+    if (!corridorOpen) {
+      setEta(12);
+      return;
+    }
+    setEta(12);
+    const id = setInterval(() => {
+      setEta((value) => Math.max(0, value - 1));
+    }, 1100);
+    return () => clearInterval(id);
+  }, [corridorOpen, latitude, longitude]);
+
   return (
     <div className="rounded-xl border border-gray-200 shadow-sm overflow-hidden bg-white">
       <div className="px-4 py-2 border-b bg-white flex justify-between items-center gap-3">
@@ -24,13 +42,14 @@ const AccidentLocationMap: React.FC<AccidentLocationMapProps> = ({
         <span className="text-xs text-gray-500">{locationName}</span>
       </div>
 
-      <div className="h-64">
+      <div className="h-72">
         <CityMap
           center={[latitude, longitude]}
           zoom={corridorOpen ? 13 : 16}
           highlight={{ lat: latitude, lng: longitude, radius: 70 }}
           showDefaultMarker
-          corridor={corridorOpen ? [[latitude, longitude], SASSOON] : undefined}
+          corridor={corridor}
+          animateAmbulance={corridorOpen}
           markers={[
             {
               id: "accident-point",
@@ -45,8 +64,8 @@ const AccidentLocationMap: React.FC<AccidentLocationMapProps> = ({
                   {
                     id: "hospital",
                     name: "Sassoon General Hospital",
-                    lat: SASSOON[0],
-                    lng: SASSOON[1],
+                    lat: SASSOON_HOSPITAL[0],
+                    lng: SASSOON_HOSPITAL[1],
                     type: "emergency" as const,
                     description: "Green corridor destination",
                   },
@@ -58,7 +77,9 @@ const AccidentLocationMap: React.FC<AccidentLocationMapProps> = ({
 
       <div className="px-4 py-2 text-xs text-gray-600 bg-white">
         {corridorOpen
-          ? "Green corridor open toward Sassoon General Hospital."
+          ? eta > 0
+            ? `Ambulance moving on the green corridor to Sassoon · ${eta} min ETA`
+            : "Ambulance arrived at Sassoon General Hospital"
           : "Map centered on the accident. Override signals to open a green corridor."}
       </div>
     </div>

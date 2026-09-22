@@ -1,4 +1,33 @@
 export const PUNE_CENTER: [number, number] = [18.5204, 73.8567];
+export const SASSOON_HOSPITAL: [number, number] = [18.5284, 73.8722];
+
+export function buildCorridor(
+  from: [number, number],
+  to: [number, number] = SASSOON_HOSPITAL
+): [number, number][] {
+  const lerp = (t: number): [number, number] => [
+    from[0] + (to[0] - from[0]) * t,
+    from[1] + (to[1] - from[1]) * t,
+  ];
+  return [from, lerp(0.32), lerp(0.62), to];
+}
+
+export function interpolatePath(path: [number, number][], t: number): [number, number] {
+  if (path.length === 0) return PUNE_CENTER;
+  if (path.length === 1 || t <= 0) return path[0];
+  if (t >= 1) return path[path.length - 1];
+
+  const segments = path.length - 1;
+  const scaled = t * segments;
+  const index = Math.min(Math.floor(scaled), segments - 1);
+  const local = scaled - index;
+  const start = path[index];
+  const end = path[index + 1];
+  return [
+    start[0] + (end[0] - start[0]) * local,
+    start[1] + (end[1] - start[1]) * local,
+  ];
+}
 
 export type CongestionLevel = "High" | "Medium" | "Low";
 export type AccidentSeverity = "Low" | "Medium" | "High";

@@ -33,6 +33,57 @@ body {
   z-index: 0;
 }
 
+.ticker-pulse {
+  animation: ticker-pulse 1s ease-in-out infinite;
+}
+
+.ticker-fade {
+  animation: ticker-fade 0.45s ease;
+}
+
+.ambulance-marker {
+  background: transparent;
+  border: none;
+}
+
+.ambulance-pulse {
+  font-size: 28px;
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.35));
+  animation: ambulance-bob 0.7s ease-in-out infinite;
+}
+
+@keyframes ticker-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@keyframes ticker-fade {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ambulance-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
 /* ====== BASE TABLE ====== */
 .responsive-table {
   border-collapse: collapse;

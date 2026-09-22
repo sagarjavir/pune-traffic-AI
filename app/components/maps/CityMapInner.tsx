@@ -13,6 +13,7 @@ import {
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { PUNE_CENTER, congestionColor, type CongestionLevel } from "../../data/puneTraffic";
+import MovingAmbulance from "./MovingAmbulance";
 
 export type CityMapMarker = {
   id: string;
@@ -31,6 +32,7 @@ export type CityMapInnerProps = {
   highlight?: { lat: number; lng: number; radius?: number };
   showDefaultMarker?: boolean;
   corridor?: [number, number][];
+  animateAmbulance?: boolean;
 };
 
 export default function CityMapInner({
@@ -40,6 +42,7 @@ export default function CityMapInner({
   highlight,
   showDefaultMarker = false,
   corridor,
+  animateAmbulance = false,
 }: CityMapInnerProps) {
   useEffect(() => {
     const iconProto = L.Icon.Default.prototype as L.Icon.Default & {
@@ -75,6 +78,9 @@ export default function CityMapInner({
           positions={corridor}
           pathOptions={{ color: "#16a34a", weight: 6, opacity: 0.85 }}
         />
+      )}
+      {animateAmbulance && corridor && corridor.length > 1 && (
+        <MovingAmbulance path={corridor} />
       )}
 
       {highlight && (
